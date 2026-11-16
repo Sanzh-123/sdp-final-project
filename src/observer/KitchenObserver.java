@@ -1,4 +1,4 @@
-package org.example.observer;
+package observer;
 
 public class KitchenObserver implements Observer {
     public void update(String s) {

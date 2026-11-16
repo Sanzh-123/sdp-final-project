@@ -1,8 +1,6 @@
 package factory;
 
-import models.Burger;
-import models.Meal;
-import models.Pizza;
+import models.*;
 
 /**
  * Provides the restaurant's concrete meal creators.

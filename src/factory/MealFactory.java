@@ -1,6 +1,6 @@
 package factory;
 
-import models.Meal;
+import models.*;
 
 /** Creator in the Factory Method pattern. */
 public abstract class MealFactory {
