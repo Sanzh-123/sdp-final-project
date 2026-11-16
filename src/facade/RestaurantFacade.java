@@ -27,12 +27,6 @@ public class RestaurantFacade {
         discount = new Context();
     }
     
-    public void orderMeal(String meal) { // Obsolete
-        subject.setStatus("Order received: " + meal);
-        subject.setStatus("Preparing " + meal);
-        subject.setStatus(meal + " is ready!");
-    }
-    
     public void printMenu() {
         System.out.println("\n--- Main Menu ---");
         System.out.println("1. Add Pizza  - 2,500 KZT");
@@ -75,10 +69,10 @@ public class RestaurantFacade {
     public void addMeal(String name) {
         switch (name) {
             case "pizza":
-                factory = RestaurantMealFactory.pizzaFactory();
+                factory = new PizzaMealFactory();
                 break;
             case "burger":
-                factory = RestaurantMealFactory.burgerFactory();
+                factory = new BurgerMealFactory();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid meal name: " + name);
@@ -96,18 +90,15 @@ public class RestaurantFacade {
             switch (choice) {
                 case 1:
                     meal = new CheeseDecorator(meal);
-                    System.out.println("Cheese added. Current price: "
-                            + formatPrice(meal.getPrice()) + " KZT\n");
+                    System.out.println("Cheese added. Current price: " + formatPrice(meal.getPrice()) + " KZT\n");
                     break;
                 case 2:
                     meal = new BaconDecorator(meal);
-                    System.out.println("Bacon added. Current price: "
-                            + formatPrice(meal.getPrice()) + " KZT\n");
+                    System.out.println("Bacon added. Current price: " + formatPrice(meal.getPrice()) + " KZT\n");
                     break;
                 case 3:
                     meal = new SauceDecorator(meal);
-                    System.out.println("Extra sauce added. Current price: "
-                            + formatPrice(meal.getPrice()) + " KZT\n");
+                    System.out.println("Extra sauce added. Current price: " + formatPrice(meal.getPrice()) + " KZT\n");
                     break;
                 case 0:
                     customizing = false;
@@ -118,8 +109,7 @@ public class RestaurantFacade {
         }
 
         builder.addMeal(meal);
-        System.out.println("Added to your order: " + meal.getName()
-                + " - " + formatPrice(meal.getPrice()) + " KZT\n");
+        System.out.println("Added to your order: " + meal.getName() + " - " + formatPrice(meal.getPrice()) + " KZT\n");
     }
     
     public void printOrder() {
@@ -130,8 +120,7 @@ public class RestaurantFacade {
 
         int itemNumber = 1;
         for (Meal meal : builder.getMeals()) {
-            System.out.printf(Locale.US, "%d. %s - %,.0f KZT%n",
-                    itemNumber, meal.getName(), meal.getPrice());
+            System.out.printf(Locale.US, "%d. %s - %,.0f KZT%n", itemNumber, meal.getName(), meal.getPrice());
             itemNumber++;
         }
         System.out.printf(Locale.US, "Subtotal: %,.0f KZT%n%n", builder.getSubtotal());
