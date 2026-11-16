@@ -7,13 +7,10 @@ import java.util.List;
 public class Order {
     static int idCounter;
     private int id;
-    private String name, date;
     private List<Meal> meals = new ArrayList<>();
     
-    public Order(String name, String date, List<Meal> meals) {
+    public Order(List<Meal> meals) {
         this.id = ++idCounter;
-        this.name = name;
-        this.date = date;
         this.meals = meals;
     }
 

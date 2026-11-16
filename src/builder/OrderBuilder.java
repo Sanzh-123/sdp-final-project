@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBuilder {
-    private String name, date;
     private List<Meal> meals = new ArrayList<>();
     
-    public void setName(String name) {this.name = name;}
-    public void setDate(String date) {this.date = date;}
     public void addMeal(Meal meal) {this.meals.add(meal);}
     public List<Meal> getMeals() {return meals;}
     
