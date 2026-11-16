@@ -1,7 +1,8 @@
 package factory;
 
-import models.*;
+import models.Meal;
 
+/** Factory Method creator: concrete factories decide which Meal to create. */
 public interface MealFactory {
-    public Meal createMeal();
+    Meal createMeal();
 }
