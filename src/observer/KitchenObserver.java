@@ -1,7 +1,8 @@
 package observer;
 
 public class KitchenObserver implements Observer {
-    public void update(String s) {
-        System.out.println("[Kitchen] " + s);
+    @Override
+    public void update(String status) {
+        System.out.println("[Kitchen] " + status);
     }
 }
