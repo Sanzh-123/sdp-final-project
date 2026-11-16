@@ -1,21 +1,34 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-/** Stores the meals selected by one customer. */
+/** Stores the meals selected for one order. */
 public class Order {
-    static int idCounter;
-    private int id;
-    private List<Meal> meals = new ArrayList<>();
-    
+    private static int idCounter = 0;
+
+    private final int id;
+    private final List<Meal> meals;
+
+    /**
+     * Creates an order from the supplied meals.
+     * A defensive copy prevents later builder changes from modifying this order.
+     */
     public Order(List<Meal> meals) {
+        if (meals == null) {
+            throw new IllegalArgumentException("Meals cannot be null.");
+        }
         this.id = ++idCounter;
-        this.meals = meals;
+        this.meals = new ArrayList<>(meals);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public List<Meal> getMeals() {
-        return meals;
+        return Collections.unmodifiableList(meals);
     }
 
     public double getSubtotal() {
