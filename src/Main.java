@@ -1,11 +1,33 @@
 import facade.RestaurantFacade;
+import ui.RestaurantWindow;
+
+import javax.swing.SwingUtilities;
+import java.awt.GraphicsEnvironment;
 
 public class Main {
     public static void main(String[] args) {
+        if (args.length > 0 && "--console".equalsIgnoreCase(args[0])) {
+            runConsoleApplication();
+            return;
+        }
+
+        if (GraphicsEnvironment.isHeadless()) {
+            System.err.println("A graphical environment is not available. Starting console mode.");
+            runConsoleApplication();
+            return;
+        }
+
+        SwingUtilities.invokeLater(() -> {
+            RestaurantWindow window = new RestaurantWindow(new RestaurantFacade());
+            window.setVisible(true);
+        });
+    }
+
+    private static void runConsoleApplication() {
         RestaurantFacade facade = new RestaurantFacade();
         System.out.println("=== Restaurant Ordering System ===");
+
         boolean running = true;
-        
         while (running) {
             facade.printMenu();
             int choice = facade.readInt("Choose an option: ");
@@ -24,8 +46,9 @@ public class Main {
                     facade.selectDiscount();
                     break;
                 case 5:
-                    facade.checkout();
-                    running = false;
+                    if (facade.checkout()) {
+                        running = false;
+                    }
                     break;
                 case 0:
                     System.out.println("Order cancelled. Goodbye!");
